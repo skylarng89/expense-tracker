@@ -32,12 +32,6 @@ const toast = useToast();
 
 // Set transactions array
 const transactions = ref([]);
-// const transactions = ref([
-//   { id: 1, item: "Flower", amount: -5.99 },
-//   { id: 2, item: "Salary", amount: 1250.0 },
-//   { id: 3, item: "Xbox Gamepass", amount: -9.0 },
-//   { id: 4, item: "Cable TV", amount: -300 },
-// ]);
 
 // Get total balance using Vue computed function
 const total = computed(() => {
