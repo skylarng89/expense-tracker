@@ -62,7 +62,7 @@ const expenses = computed(() => {
 
 // Generate unique transaction ID
 const generateUniqueId = () => {
-  return Math.floor(Math.random() * 1000000);
+  return crypto.randomUUID();
 };
 
 // Add to transaction array
