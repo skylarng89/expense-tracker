@@ -25,10 +25,19 @@ import TransactionList from "./components/TransactionList.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 
 import { useToast } from "vue-toastification";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 // Initialise Toastification
 const toast = useToast();
+
+// Init onMounted and check localStorage
+onMounted(() => {
+  const savedTransactions = JSON.parse(localStorage.getItem("transactions"));
+
+  if (savedTransactions) {
+    transactions.value = savedTransactions;
+  }
+});
 
 // Set transactions array
 const transactions = ref([]);
@@ -72,15 +81,25 @@ const submitTransaction = (transactionData) => {
     item: transactionData.item,
     amount: transactionData.amount,
   });
+
+  saveToLocalStorage();
+  
   toast.success("Transaction Added");
 };
 
-// Delete transactions
+// Delete transactions from array
 const removeTransaction = (id) => {
   transactions.value = transactions.value.filter(
     (transaction) => transaction.id !== id
   );
 
+  saveToLocalStorage();
+
   toast.success("Transaction deleted");
+};
+
+// Save to localStorage
+const saveToLocalStorage = () => {
+  localStorage.setItem("transactions", JSON.stringify(transactions.value));
 };
 </script>
