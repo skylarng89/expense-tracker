@@ -27,7 +27,7 @@ onMounted(() => {
   transactionStore.loadTransactions();
 });
 
-// Directly expose to the template, no return statement needed
+// Expose balances to the store
 const transactions = transactionStore.transactions;
 const total = transactionStore.total;
 const income = transactionStore.income;
