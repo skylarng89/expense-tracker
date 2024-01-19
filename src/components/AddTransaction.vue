@@ -30,18 +30,14 @@
 
 <script setup>
 import { ref } from "vue";
-// Import Toastification
 import { useToast } from "vue-toastification";
+import { useTransactionStore } from "../store/transactions";
 
 const item = ref("");
 const amount = ref("");
-
-// Emit event to main component
-const emit = defineEmits(["addedTransaction"]);
-
-// Initialize Toastification
 const toast = useToast();
-// Validate input fields
+const transactionStore = useTransactionStore();
+
 const onSubmit = () => {
   if (!item.value || !amount.value) {
     toast.error("Please fill all fields");
@@ -53,7 +49,7 @@ const onSubmit = () => {
     amount: parseFloat(amount.value),
   };
 
-  emit("addedTransaction", transactionData);
+  transactionStore.addTransaction(transactionData); // Directly calling store action
 
   item.value = "";
   amount.value = "";
